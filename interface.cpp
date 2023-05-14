@@ -60,5 +60,5 @@ void Interface::openFile()
 }
 void Interface::updateGraphWindow()
 {
-    graph_window->updateGraph(graph);
+    graph_window->updateGraph(std::make_unique<Graph>(graph));
 }

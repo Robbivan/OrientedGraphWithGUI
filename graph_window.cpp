@@ -1,13 +1,13 @@
 #include "graph_window.h"
 #include <QVBoxLayout>
-GraphWindow::GraphWindow(QWidget *parent) : QWidget(parent)
+GraphWindow::GraphWindow(QWidget *parent) : QWidget(parent), graph(nullptr)
 {
     setFixedSize(400,400);
 }
 
-void GraphWindow::updateGraph(const Graph &graph)
+void GraphWindow::updateGraph(std::unique_ptr<Graph> graph)
 {
-    this->graph = graph;
+    this->graph = std::move(graph);
     repaint();
 }
 
@@ -20,8 +20,9 @@ void GraphWindow::paintEvent(QPaintEvent *event)
 
     painter.drawRect(0,0,height(),width());
     QPoint center(height()/2,width()/2);
-    graph.paint(painter,center);
-
+    if (graph){
+         graph->paint(painter,center);
+    }
     painter.end();
 }
 

@@ -9,13 +9,13 @@ class GraphWindow : public QWidget
     Q_OBJECT
 public:
     explicit GraphWindow(QWidget *parent = nullptr);
-    void updateGraph(const Graph& graph);
+    void updateGraph(std::unique_ptr<Graph> graph);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    Graph graph;
+    std::unique_ptr<Graph> graph;
 };
 
 #endif // GRAPH_WINDOW_H

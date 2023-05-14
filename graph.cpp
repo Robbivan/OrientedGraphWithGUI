@@ -33,14 +33,14 @@ bool Graph::IsloadNewGraph(const QString& data)
         }
     }
 
-    loaded_matrix = matrix;
+    matrix_loaded = matrix;
     return true;
 }
 
 void Graph::paint(QPainter& painter,const QPoint& center) const
 {
 
-    size_t height = loaded_matrix.col_size();
+    size_t height = matrix_loaded.col_size();
     if(height == 0){
         return;
     }
@@ -71,7 +71,7 @@ void Graph::paint(QPainter& painter,const QPoint& center) const
     for (size_t i = 0; i < height;++i){
         for (size_t j = 0; j < height; ++j){
 
-            if (loaded_matrix[i][j] && i!=j){
+            if (matrix_loaded[i][j] && i!=j){
 
                 double a_cos = cos(angular_distance*i);
                 double a_sin = sin(angular_distance*i);
