@@ -11,52 +11,52 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 {
     graph_window = new GraphWindow(this);
 
-    button_load_graph = new QPushButton("Load graph from file",this);
+    button_for_loading_graph = new QPushButton("Загрузить новый граф",this);
 
-    error = new QLineEdit(this);
+    message = new QLineEdit(this);
+    message->setReadOnly(true);
 
     auto common_layout = new QHBoxLayout(this);
     auto right_layout = new QVBoxLayout(this);
     auto left_layout = new QVBoxLayout(this);
 
-    right_layout->addWidget(graph_window);
-    left_layout->addWidget(button_load_graph);
-    left_layout->addWidget(error);
+
+    right_layout->addWidget(button_for_loading_graph);
+    right_layout->addWidget(message);
+    left_layout->addWidget(graph_window);
+
     common_layout->addLayout(left_layout);
     common_layout->addLayout(right_layout);
+
     this->setLayout(common_layout);
-
-
-    connect(button_load_graph,SIGNAL(clicked()),this,SLOT(openFile()));
+    connect(button_for_loading_graph,SIGNAL(clicked()),this,SLOT(openFile()));
 }
 
 
 void Interface::openFile()
 {
-    QFileDialog file_dialog;
-    QString path = file_dialog.getOpenFileName(this, tr("Open graph"), QString(), tr("Text files (*.txt)"));
+    QFileDialog dialog;
+    QString path = dialog.getOpenFileName(this, tr("Открыть файл"), QString(), tr("Text files (*.txt)"));
     QFile file(path);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        error->setText("Error can't open file");
+        message->setText("Ошибка, невозможно открыть файл ");
         return;
     }
 
     QString data = file.readAll();
+
     if(data.isEmpty()){
-        error->setText("File is empty!");
+        message->setText("Файл пуст");
         return;
     }
 
-    try {
-        graph.loadNewGraph(data);
-
-    }  catch (const std::logic_error& exc) {
-        error->setText(exc.what());
+    if(!graph.IsloadNewGraph(data)){
         return;
     }
+
     updateGraphWindow();
-    error->setText("File opened successfully");
+    message->setText("Файл успешно открыт");
 }
 void Interface::updateGraphWindow()
 {

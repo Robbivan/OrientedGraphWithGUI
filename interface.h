@@ -19,9 +19,11 @@ public slots:
 
 private:
     Graph graph;
+
+    QLineEdit* message;
     GraphWindow* graph_window;
-    QPushButton* button_load_graph;
-    QLineEdit* error;
+    QPushButton* button_for_loading_graph;
+
 };
 
 #endif // INTERFACE_H

@@ -12,7 +12,7 @@ public:
     void updateGraph(const Graph& graph);
 
 protected:
-    void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     Graph graph;

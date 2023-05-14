@@ -6,27 +6,25 @@ template<class T>
 class Matrix
 {
 public:
-    Matrix(){
-        matrix = QVector<QVector<T>>(0);
-    }
-    Matrix(int size){
-        matrix = QVector<QVector<T>>(size,QVector<T>(size));
-    }
+    Matrix():matrix(QVector<QVector<T>>(0)){}
+    Matrix(size_t size):matrix(QVector<QVector<T>>(size,QVector<T>(size))){}
 
     QVector<T>& operator[](int i){
         return matrix[i];
     }
-    QVector<T>& operator[](int i) const{
+    const QVector<T>& operator[](int i) const{
         return matrix[i];
     }
-    size_t width() const{
-        if(matrix.height == 0){
+
+    size_t col_size() const{
+        return matrix.size();
+    }
+
+    size_t row_size() const{
+        if(!matrix.col_size()){
             return 0;
         }
         return matrix[1].size();
-    }
-    size_t hieght() const{
-        return matrix.size();
     }
 
 
