@@ -2,10 +2,10 @@
 #define INTERFACE_H
 
 #include <QWidget>
-#include "graph_window.h"
 #include "graph.h"
-#include <QPushButton>
+#include "graph_window.h"
 #include <QLineEdit>
+#include <QPushButton>
 
 class Interface : public QWidget
 {

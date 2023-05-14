@@ -1,19 +1,20 @@
 #include "interface.h"
 #include <QFile>
 #include <QFileDialog>
+#include <QSizePolicy>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#include <stdexcept>
-#include <QSizePolicy>
-
 Interface::Interface(QWidget *parent) : QWidget(parent)
 {
+    setWindowTitle(QStringLiteral("Лучшая прога для графов!!!"));
     graph_window = new GraphWindow(this);
 
     button_for_loading_graph = new QPushButton("Загрузить новый граф",this);
 
     message = new QLineEdit(this);
+
+
     message->setReadOnly(true);
 
     auto common_layout = new QHBoxLayout(this);
@@ -52,7 +53,8 @@ void Interface::openFile()
     }
 
     if(!graph.IsloadNewGraph(data)){
-        return;
+       message->setText("Матрица не квадратная");
+       return;
     }
 
     updateGraphWindow();

@@ -1,8 +1,7 @@
 #include "graph.h"
 #include <iostream>
-
-#include <QStringList>
 #include <math.h>
+#include <QStringList>
 #include <QDebug>
 
 
@@ -24,7 +23,6 @@ bool Graph::IsloadNewGraph(const QString& data)
         QStringList items = rows[i].split(" ");
 
         if(items.size()!=rows_size){
-            std::cerr<<"Количество строк не соответствует количеству столбцов"<<std::endl;
             return false;
         }
 
